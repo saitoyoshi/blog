@@ -3,3 +3,4 @@ docker/db/mysql_data
 memo
 *.txt
 *.png
+.env

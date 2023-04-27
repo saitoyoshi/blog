@@ -16,7 +16,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     username varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
-    email varchar(255) NOT NULL,
+    email varchar(255) unique NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at datetime NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4

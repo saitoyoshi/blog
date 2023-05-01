@@ -3,20 +3,25 @@
 require_once __DIR__ . '/classes/User.php';
 session_start();
 require_once __DIR__ . '/libs/utils.php';
-// todoすでにログインしていたら一覧ページにとばす
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // ヴァリデーション ここはしっかりしません
+function clearSessionMessages() {
     if (isset($_SESSION['errors'])) {
         unset($_SESSION['errors']);
     }
     if (isset($_SESSION['msg'])) {
         unset($_SESSION['msg']);
     }
+}
+// todoすでにログインしていたら一覧ページにとばす
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // ヴァリデーション ここはしっかりしません
+    clearSessionMessages();
     $errors = [];
     if (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'メールアドレスの形式が正しくありません';
     }
-    if (strlen($_POST['password']) < 8) {
+    // FILTER_SANITIZE_STRINGはdeprecatedになった
+    $password = filter_input(INPUT_POST, 'password');
+    if (strlen($password) < 8) {
         $errors['password'] = 'パスワードは最低8文字でなければなりません';
     }
     if (count($errors) > 0) {
@@ -28,12 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user->login()) {
             session_regenerate_id();
             $_SESSION['user'] = $user;
-            if ($_SESSION['errors']) {
-                unset($_SESSION['errors']);
-            }
-            if ($_SESSION['msg']) {
-                unset($_SESSION['msg']);
-            }
+            clearSessionMessages();
             header('Location: list.php');
             exit;
         } else {

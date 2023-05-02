@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/classes/User.php';
 session_start();
 require_once __DIR__ . '/libs/utils.php';
@@ -11,7 +12,6 @@ function clearSessionMessages() {
         unset($_SESSION['msg']);
     }
 }
-// todoすでにログインしていたら一覧ページにとばす
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ヴァリデーション ここはしっかりしません
     clearSessionMessages();

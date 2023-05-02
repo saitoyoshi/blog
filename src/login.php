@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/classes/User.php';
-session_start();
 require_once __DIR__ . '/libs/utils.php';
 function clearSessionMessages() {
     if (isset($_SESSION['errors'])) {

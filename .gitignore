@@ -5,3 +5,4 @@ memo
 *.png
 .env
 composer
+.vscode/

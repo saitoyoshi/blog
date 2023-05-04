@@ -8,9 +8,9 @@ function validatePost($title, $content) {
         $errors['title'] = 'タイトルは255文字以内でなければなりません';
     }
     if ($content === '') {
-        $errors['title'] = 'タイトルが空です';
+        $errors['content'] = 'タイトルが空です';
     } elseif (strlen($content) > 20000) {
-        $errors['title'] = 'タイトルは20000文字以内でなければなりません';
+        $errors['content'] = 'タイトルは20000文字以内でなければなりません';
     }
     return $errors;
 }

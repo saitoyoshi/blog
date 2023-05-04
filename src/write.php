@@ -4,21 +4,22 @@ require_once __DIR__ . '/classes/User.php';
 require_once __DIR__ . '/classes/Post.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/libs/utils.php';
+require_once __DIR__ . '/libs/validatePost.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $blogTitle = $_POST['title'];
     $blogContent = $_POST['content'];
-    $errors = [];
-    if ($blogTitle === '') {
-        $errors['title'] = 'タイトルが空です';
-    } elseif (strlen($blogTitle) > 255) {
-        $errors['title'] = 'タイトルは255文字以内でなければなりません';
-    }
-    if ($blogContent === '') {
-        $errors['title'] = 'タイトルが空です';
-    } elseif (strlen($blogContent) > 20000) {
-        $errors['title'] = 'タイトルは20000文字以内でなければなりません';
-    }
+    $errors = validatePost($blogTitle, $blogContent);
+    // if ($blogTitle === '') {
+    //     $errors['title'] = 'タイトルが空です';
+    // } elseif (strlen($blogTitle) > 255) {
+    //     $errors['title'] = 'タイトルは255文字以内でなければなりません';
+    // }
+    // if ($blogContent === '') {
+    //     $errors['title'] = 'タイトルが空です';
+    // } elseif (strlen($blogContent) > 20000) {
+    //     $errors['title'] = 'タイトルは20000文字以内でなければなりません';
+    // }
     if (count($errors) === 0) {
         $user_id = $_SESSION['user']->getId();
         $post = new Post($user_id, $blogTitle, $blogContent);

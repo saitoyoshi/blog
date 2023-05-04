@@ -10,10 +10,13 @@
                 <p class="card-text"><a class="text-decoration-none text-secondary" href="<?php echo "content.php?id=" . $post->getId() ?>"><?php $content_first_line = strtok($post->getContent(), "\n") ?><?php echo h($content_first_line) ?></a></p>
                 <p>Posted by: <?php echo h($post->getUsername()) . ' on ' . h($post->getCreatedAt()) ?></p>
                 <?php if ($_SESSION['user']->getId() == $post->getUserId()) : ?>
+
                     <form action="delete_post.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?')">
                         <input type="hidden" name="post_id" value="<?php echo h($post->getId()) ?>">
+                        <a href="../edit.php?id=<?php echo h($post->getId()) ?>" class="btn btn-info">編集</a>
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
+
                 <?php endif; ?>
                 </div>
             </div>

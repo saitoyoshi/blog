@@ -23,10 +23,29 @@ class User {
     public function setEmail($email) {
         $this->email = $email;
     }
+    public function getEmail() {
+        return $this->email;
+    }
     public function setPassword($password) {
         $this->password = $password;
     }
-
+    public function getId() {
+        $email = $this->getEmail();
+        $hashedDBPassword = db('select password from users where email = ?', $email);
+        if (password_verify($this->password, $hashedDBPassword[0]['password'])) {
+            $id = db('select id from users where email = ?', $email);
+            return $id[0]['id'];
+        } else {
+            return -1;
+        }
+    }
+    public function setId($id) {
+        $this->id = $id;
+    }
+    public function getNameById($id) {
+        $name = db('select username from users where id = ?', $id);
+        return $name[0]['username'];
+    }
     public function register(): bool {
         try {
             $createdAt = $updatedAt = $this->getCurrentTime();
@@ -39,7 +58,7 @@ class User {
         }
     }
     private function getCurrentTime() {
-        return date('Y-m-d');
+        return date('Y-m-d H:i:s');
     }
     private function getHashedPassword() {
         return password_hash($this->password, PASSWORD_BCRYPT);
@@ -65,7 +84,3 @@ class User {
         return password_verify($this->password, $password[0]['password']);
     }
 }
-// $u = new User('15', 'AA', 'p', 'a');
-// var_dump($u);
-// $u->setEmail('mail');
-// $u->register();

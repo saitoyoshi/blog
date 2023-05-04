@@ -29,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = new User($password, $email);
         $user->setName($name);
         if ($user->register()) {
-            $_SESSION['user'] = $user;
+            $id = $user->getId();
+            $user->setId($id);
+            $_SESSION['user'] = serialize($user);
             header('Location: list.php');
             exit;
         } else {

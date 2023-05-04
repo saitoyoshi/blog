@@ -31,7 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = new User($password, $email);
         if ($user->login()) {
             session_regenerate_id();
-            $_SESSION['user'] = $user;
+            $id = $user->getId();
+            $name = $user->getNameById($id);
+            $user->setId($id);
+            $user->setName($name);
+            // $userInfo = $user->getUserInfoById($user->getId());
+            $_SESSION['user'] = serialize($user);
             clearSessionMessages();
             header('Location: list.php');
             exit;

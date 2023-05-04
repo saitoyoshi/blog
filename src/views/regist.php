@@ -3,13 +3,13 @@
     <form action="" method="post">
         <div class="mb-3">
             <label for="name" class="form-label">名前</label>
-            <input type="text" name="name" id="name" value="<?php echo h($_POST['name']) ?>" class="form-control">
+            <input type="text" name="name" id="name" value="<?php if (isset($_POST['name'])): ?><?php echo h($_POST['name']) ?><? endif; ?>" class="form-control">
             <p class="mt-3 text-danger"><?php if (isset($errors['name'])): ?><?php echo h($errors['name']) ?><?php endif; ?></p>
 
         </div>
         <div class="mb-3">
         <label for="email" class="form-label">メールアドレス</label>
-        <input type="email" name="email" id="email" value="<?php echo h($_POST['email']) ?>" class="form-control">
+        <input type="email" name="email" id="email" value="<?php if (isset($_POST['email'])): ?><?php echo h($_POST['email']) ?><? endif; ?>" class="form-control">
         <p class="mt-3 text-danger"><?php if (isset($errors['email'])): ?><?php echo h($errors['email']) ?><?php endif; ?></p>
         </div>
         <div class="mb-3">

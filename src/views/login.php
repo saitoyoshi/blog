@@ -18,6 +18,6 @@
                 <p class="text-danger mt-3"><?php echo h($_SESSION['errors']['password']) ?></p>
             <?php endif; ?>
         </div>
-        <button type="submit" class="btn btn-primary pt-3">ログイン</button>
+        <button type="submit" class="btn btn-primary mt-3">ログイン</button>
     </form>
 </div>

@@ -13,6 +13,10 @@
         <label for="content" class="form-label">本文</label>
         <textarea name="content" id="content" cols="30" rows="10" class="form-control"><?php echo h($post->getContent()) ?></textarea>
         </div>
+        <div class="mb-3">
+            <label for="tags" class="form-label">タグ</label>
+            <input type="text" name="tags" id="tags" value="<?php echo h($tagStr) ?>" class="form-control">
+        </div>
         <input type="hidden" name="post_id" value="<?php echo $post->getId() ?>">
         <button type="submit" class="btn btn-info">更新</button>
     </form>

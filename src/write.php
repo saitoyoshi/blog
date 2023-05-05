@@ -22,10 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // }
     if (count($errors) === 0) {
         $tags = explode(',', $_POST['tags']);
-        $tags = array_map('trim', $tags);
-        $tags = array_filter($tags, function($v) {
-            return $v !== "";
-        });
+        if (count($tags) !== 0) {
+            $tags = array_map('trim', $tags);
+            $tags = array_filter($tags, function($v) {
+                return $v !== "";
+            });
+        }
+        $tags = [''];
         $sql = 'select name from tags';
         $result = db($sql);
         $dbTags = array_column($result, 'name');

@@ -15,6 +15,10 @@
             <textarea name="content" id="content" cols="30" rows="10" placeholder="ここに本文" class="form-control"><?php if (isset($_POST['content'])) : ?><?php echo h($_POST['content']) ?><?php endif; ?></textarea>
             <p class="mt-3 text-danger"><?php if (isset($errors['content'])) : ?><?php echo h($errors['content']) ?><?php endif; ?></p>
         </div>
+        <div class="mb-3">
+            <label for="tags" class="form-label">タグ (カンマで区切って複数のタグを入力)</label>
+            <input type="text" class="form-control" name="tags" id="tags">
+        </div>
         <button type="submit" class="btn btn-info">記事を投稿</button>
     </form>
 </div>

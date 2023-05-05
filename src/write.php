@@ -21,9 +21,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     $errors['title'] = 'タイトルは20000文字以内でなければなりません';
     // }
     if (count($errors) === 0) {
+        $tags = explode(',', $_POST['tags']);
+        $tags = array_map('trim', $tags);
+        $tags = array_filter($tags, function($v) {
+            return $v !== "";
+        });
+        $sql = 'select name from tags';
+        $result = db($sql);
+        $dbTags = array_column($result, 'name');
+        foreach ($tags as $tag) {
+            if (!in_array($tag, $dbTags)) {
+                db('insert into tags (name) values (?)', $tag);
+            }
+        }
         $user_id = $_SESSION['user']->getId();
         $post = new Post($user_id, $blogTitle, $blogContent);
-        $post->createPost();
+        $post_id = $post->createPost();
+        // 入力されたタグを処理
+        foreach ($tags as $tag) {
+            // タグ名からタグのIDを取得
+            $sql = "SELECT id FROM tags WHERE name = ?";
+            $result = db($sql, $tag);
+            $tag_id = $result[0]['id'];
+
+            // post_tagsテーブルに関連データを挿入
+            $sql = "INSERT INTO post_tags (post_id, tag_id) VALUES (?, ?)";
+            db($sql, $post_id, $tag_id);
+        }
         header('Location: list.php');
         exit;
     }

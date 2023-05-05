@@ -103,6 +103,9 @@ class Post {
     // ただし、これらのメソッドはデータベースやファイルシステムなどの永続化に関連する処理を含む可能性があるため、
     // このクラスの設計に関連するデータアクセス層（例：データベース操作用のクラス）やサービス層を検討することをお勧めします。
     public function createPost() {
-        db('INSERT INTO posts (user_id, title, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', $this->getUserId(), $this->getTitle(), $this->getContent(), $this->getCreatedAt(), $this->getUpdatedAt());
+        $post_id = db('INSERT INTO posts (user_id, title, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', $this->getUserId(), $this->getTitle(), $this->getContent(), $this->getCreatedAt(), $this->getUpdatedAt());
+
+        // 挿入された記事のIDを返す
+        return $post_id;
     }
 }

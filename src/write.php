@@ -6,13 +6,8 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/libs/utils.php';
 require_once __DIR__ . '/libs/validatePost.php';
 
-var_dump($_SESSION);
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $blogTitle = $_POST['title'];
-    $blogContent = $_POST['content'];
-    $errors = validatePost($blogTitle, $blogContent);
-    if (count($errors) === 0) {
-        $tags = explode(',', $_POST['tags']);
+function processPostRequest($blogTitle, $blogContent) {
+    $tags = explode(',', $_POST['tags']);
         if (count($tags) !== 0) {
             $tags = array_map('trim', $tags);
             $tags = array_filter($tags, function($v) {
@@ -45,6 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         header('Location: list.php');
         exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $blogTitle = $_POST['title'];
+    $blogContent = $_POST['content'];
+    $errors = validatePost($blogTitle, $blogContent);
+    if (count($errors) === 0) {
+        processPostRequest($blogTitle, $blogContent);
     }
 }
 

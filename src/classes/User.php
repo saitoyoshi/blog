@@ -11,8 +11,6 @@ class User {
     private ?string $updatedAt;
     function __construct($password, $email)
     {
-        // $this->id = $id;
-        // $this->username = $username;
         $this->password = $password;
         $this->email = $email;
     }
@@ -73,7 +71,6 @@ class User {
             }
         }
         return false;
-        // $existsUser = db('select ');
     }
     private function exsistsUserByEmail() {
         $exsists = db('select email from users where email = ?', $this->email);

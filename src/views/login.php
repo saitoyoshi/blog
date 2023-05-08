@@ -19,5 +19,6 @@
             <?php endif; ?>
         </div>
         <button type="submit" class="btn btn-primary mt-3">ログイン</button>
+        <a href="regist.php" class="btn btn-info mt-3">新規登録</a>
     </form>
 </div>

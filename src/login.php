@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $user->getNameById($id);
             $user->setId($id);
             $user->setName($name);
-            // $userInfo = $user->getUserInfoById($user->getId());
             $_SESSION['user'] = serialize($user);
             clearSessionMessages();
             header('Location: list.php');

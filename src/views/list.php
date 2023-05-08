@@ -16,7 +16,7 @@
                 <p>Posted by: <?php echo h($post->getUsername()) . ' on ' . h($post->getCreatedAt()) ?></p>
                 <?php if ($_SESSION['user']->getId() == $post->getUserId()) : ?>
 
-                    <form action="delete_post.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?')">
+                    <form action="delete_post.php" method="post" onsubmit="return confirm('本当に記事を削除してもいいですか？')">
                         <input type="hidden" name="post_id" value="<?php echo h($post->getId()) ?>">
                         <a href="../edit.php?id=<?php echo h($post->getId()) ?>" class="btn btn-info">編集</a>
                         <button type="submit" class="btn btn-danger">削除</button>

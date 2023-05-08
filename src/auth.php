@@ -2,14 +2,20 @@
 
 session_start();
 
-// すでにログインしている場合は、一覧ページにリダイレクト
-if (isset($_SESSION['user']) && basename($_SERVER['PHP_SELF']) !== 'list.php' && basename($_SERVER['PHP_SELF']) !== 'write.php' && basename($_SERVER['PHP_SELF']) !== 'content.php' && basename($_SERVER['PHP_SELF']) !== 'edit.php' && basename($_SERVER['PHP_SELF']) !== 'tag.php') {
-    header('Location: list.php');
+$current_page = basename($_SERVER['PHP_SELF']);
+$is_logged_in = isset($_SESSION['user']);
+
+$public_pages = ['login.php', 'regist.php'];
+$private_pages = ['list.php', 'write.php', 'content.php', 'edit.php', 'tag.php'];
+
+// ログインしていない場合で、ログインページと登録ページ以外にアクセスした場合は、ログインページにリダイレクト
+if (!$is_logged_in && !in_array($current_page, $public_pages)) {
+    header('Location: login.php');
     exit;
 }
 
-// ログインしていない場合で、ログインページと登録ページ以外にアクセスした場合は、ログインページにリダイレクト
-if (!isset($_SESSION['user']) && basename($_SERVER['PHP_SELF']) !== 'login.php' && basename($_SERVER['PHP_SELF']) !== 'regist.php') {
-    header('Location: login.php');
+// ログインしている場合で、プライベートページ以外にアクセスした場合は、一覧ページにリダイレクト
+if ($is_logged_in && !in_array($current_page, $private_pages)) {
+    header('Location: list.php');
     exit;
 }

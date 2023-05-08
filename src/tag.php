@@ -26,8 +26,6 @@ foreach ($result as $row) {
     $post->setUsername($row['username']);
     $posts[] = $post;
 }
-// var_dump($posts);
-
 $title = 'tag page';
 $content = __DIR__ . '/views/tag.php';
 include __DIR__ . '/views/layout.php';

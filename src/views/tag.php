@@ -1,10 +1,11 @@
 <div class="container py-4">
-    <h4 class="mb-3">投稿一覧画面</h4>
+    <h4 class="mb-3">タグ画面</h4>
     <a href="../logout.php">logout</a>
-    <a href="../write.php" class="btn btn-success">記事を書く</a>
+    <a href="../list.php">戻る</a>
     <hr>
     <?php foreach ($posts as $post) : ?>
         <div class="card mb-4" style="width: 18rem;">
+        <?php var_dump($post) ?>
             <div class="card-body">
                 <h5 class="card-title"><a class="text-decoration-none text-dark" href="<?php echo "content.php?id=" . $post->getId() ?>"><?php echo h($post->getTitle()) ?></a></h5>
                 <p class="card-text"><a class="text-decoration-none text-secondary" href="<?php echo "content.php?id=" . $post->getId() ?>"><?php $content_first_line = strtok($post->getContent(), "\n") ?><?php echo h($content_first_line) ?></a></p>

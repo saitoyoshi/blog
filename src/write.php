@@ -6,20 +6,11 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/libs/utils.php';
 require_once __DIR__ . '/libs/validatePost.php';
 
+var_dump($_SESSION);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $blogTitle = $_POST['title'];
     $blogContent = $_POST['content'];
     $errors = validatePost($blogTitle, $blogContent);
-    // if ($blogTitle === '') {
-    //     $errors['title'] = 'タイトルが空です';
-    // } elseif (strlen($blogTitle) > 255) {
-    //     $errors['title'] = 'タイトルは255文字以内でなければなりません';
-    // }
-    // if ($blogContent === '') {
-    //     $errors['title'] = 'タイトルが空です';
-    // } elseif (strlen($blogContent) > 20000) {
-    //     $errors['title'] = 'タイトルは20000文字以内でなければなりません';
-    // }
     if (count($errors) === 0) {
         $tags = explode(',', $_POST['tags']);
         if (count($tags) !== 0) {
@@ -27,8 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tags = array_filter($tags, function($v) {
                 return $v !== "";
             });
+        } else {
+            $tags = [''];
         }
-        $tags = [''];
         $sql = 'select name from tags';
         $result = db($sql);
         $dbTags = array_column($result, 'name');

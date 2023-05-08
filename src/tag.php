@@ -3,15 +3,8 @@
 require_once __DIR__ . '/classes/User.php';
 require_once __DIR__ . '/classes/Post.php';
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/libs/utils.php';
 
-function getTagsByPostId($post_id) {
-    $sql = "SELECT t.name FROM tags t
-            JOIN post_tags pt ON t.id = pt.tag_id
-            WHERE pt.post_id = ?";
-    $tagNamesResult = db($sql, $post_id);
-    $tagNames = array_column($tagNamesResult, 'name');
-    return $tagNames;
-}
 $tagName = $_GET['tag'];
 
 $sql = "select p.*, u.username from posts p

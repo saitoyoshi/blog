@@ -3,7 +3,7 @@
     <a href="../logout.php">logout</a>
     <a href="../list.php">戻る</a>
 
-    <form action="" method="post">
+    <form action="" method="post" onsubmit="return confirmSubmit('記事を保存していいですか？')(event);">
 
         <div class="mb-3">
             <label for="title" class="form-label">タイトル</label>

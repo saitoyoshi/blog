@@ -4,7 +4,7 @@
     <a href="../list.php">戻る</a>
 
     <?php if ($post) : ?>
-    <form action="" method="post">
+    <form action="" method="post" onsubmit="return confirmSubmit('記事を更新していいですか？')(event);">
         <div class="mb-3">
             <label for="title" class="form-label">タイトル</label>
             <input type="text" name="title" id="title" class="form-control" value="<?php echo h($post->getTitle()) ?>">
